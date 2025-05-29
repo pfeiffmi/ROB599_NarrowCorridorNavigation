@@ -1,0 +1,20 @@
+[1.317s] Invoking command in '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/src/interface_pkg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/interface_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/interface_pkg build --build-base /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/build install --record /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/install.log --single-version-externally-managed install_data
+[1.601s] running egg_info
+[1.628s] writing ../../build/interface_pkg/interface_pkg.egg-info/PKG-INFO
+[1.629s] writing dependency_links to ../../build/interface_pkg/interface_pkg.egg-info/dependency_links.txt
+[1.629s] writing requirements to ../../build/interface_pkg/interface_pkg.egg-info/requires.txt
+[1.629s] writing top-level names to ../../build/interface_pkg/interface_pkg.egg-info/top_level.txt
+[1.677s] reading manifest file '../../build/interface_pkg/interface_pkg.egg-info/SOURCES.txt'
+[1.677s] adding license file 'LICENSE'
+[1.678s] writing manifest file '../../build/interface_pkg/interface_pkg.egg-info/SOURCES.txt'
+[1.678s] running build
+[1.678s] running build_py
+[1.678s] running install
+[1.683s] running install_lib
+[1.707s] running install_data
+[1.707s] running install_egg_info
+[1.734s] removing '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/interface_pkg/lib/python3.12/site-packages/interface_pkg-0.0.0-py3.12.egg-info' (and everything under it)
+[1.734s] Copying ../../build/interface_pkg/interface_pkg.egg-info to /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/interface_pkg/lib/python3.12/site-packages/interface_pkg-0.0.0-py3.12.egg-info
+[1.735s] running install_scripts
+[1.895s] writing list of installed files to '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/install.log'
+[1.937s] Invoked command in '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/src/interface_pkg' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/interface_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/interface_pkg build --build-base /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/build install --record /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/interface_pkg/install.log --single-version-externally-managed install_data
