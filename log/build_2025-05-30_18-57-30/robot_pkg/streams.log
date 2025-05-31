@@ -1,0 +1,22 @@
+[1.081s] Invoking command in '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/src/robot_pkg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/robot_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/robot_pkg build --build-base /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/build install --record /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/install.log --single-version-externally-managed install_data
+[1.366s] running egg_info
+[1.389s] writing ../../build/robot_pkg/robot_pkg.egg-info/PKG-INFO
+[1.390s] writing dependency_links to ../../build/robot_pkg/robot_pkg.egg-info/dependency_links.txt
+[1.390s] writing entry points to ../../build/robot_pkg/robot_pkg.egg-info/entry_points.txt
+[1.390s] writing requirements to ../../build/robot_pkg/robot_pkg.egg-info/requires.txt
+[1.390s] writing top-level names to ../../build/robot_pkg/robot_pkg.egg-info/top_level.txt
+[1.440s] reading manifest file '../../build/robot_pkg/robot_pkg.egg-info/SOURCES.txt'
+[1.440s] adding license file 'LICENSE'
+[1.440s] writing manifest file '../../build/robot_pkg/robot_pkg.egg-info/SOURCES.txt'
+[1.440s] running build
+[1.441s] running build_py
+[1.441s] running install
+[1.446s] running install_lib
+[1.470s] running install_data
+[1.471s] running install_egg_info
+[1.495s] removing '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/robot_pkg/lib/python3.12/site-packages/robot_pkg-0.0.0-py3.12.egg-info' (and everything under it)
+[1.496s] Copying ../../build/robot_pkg/robot_pkg.egg-info to /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/robot_pkg/lib/python3.12/site-packages/robot_pkg-0.0.0-py3.12.egg-info
+[1.496s] running install_scripts
+[1.656s] Installing test script to /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/robot_pkg/lib/robot_pkg
+[1.657s] writing list of installed files to '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/install.log'
+[1.689s] Invoked command in '/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/src/robot_pkg' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/mike54pfeiffer/Desktop/School/ROB599/project_ws/install/robot_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/robot_pkg build --build-base /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/build install --record /home/mike54pfeiffer/Desktop/School/ROB599/project_ws/build/robot_pkg/install.log --single-version-externally-managed install_data
