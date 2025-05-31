@@ -86,7 +86,7 @@
         <!--Define the vehicle-->
         <model name='vehicle_blue' canonical_link='chassis'>
             <pose relative_to='world'>
-                0 0 0 0 0 0
+                5 7 0 0 0 -1.5708
             </pose>
             
             <link name='chassis'>
@@ -396,6 +396,81 @@
                 </output>
             </plugin>
         </model> <!--END WALL MODEL-->
+            <!-- ———————————————————————————————— -->
+        <!-- Additional walls for drawing a block “I” -->
+        <!-- ———————————————————————————————— -->
+
+        <!-- ───── Top serif (horizontal) ───── -->
+  <model name="wall_top" >
+    <static>true</static>
+    <!-- centered above corridor at y=7 -->
+    <pose>5 9 1.0 0 0 0</pose>
+    <link name="box">
+      <visual name="visual">
+        <geometry><box><size>10.0 0.5 2.0</size></box></geometry>
+        <material>
+          <ambient>0 0 1 1</ambient><diffuse>0 0 1 1</diffuse><specular>0 0 1 1</specular>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry><box><size>10.0 0.5 2.0</size></box></geometry>
+      </collision>
+    </link>
+  </model>
+
+  <!-- ───── Bottom serif (horizontal) ───── -->
+  <model name="wall_bottom">
+    <static>true</static>
+    <!-- centered below corridor at y=−5 -->
+    <pose>5 -7 1.0 0 0 0</pose>
+    <link name="box">
+      <visual name="visual">
+        <geometry><box><size>10.0 0.5 2.0</size></box></geometry>
+        <material>
+          <ambient>0 0 1 1</ambient><diffuse>0 0 1 1</diffuse><specular>0 0 1 1</specular>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry><box><size>10.0 0.5 2.0</size></box></geometry>
+      </collision>
+    </link>
+  </model>
+
+  <!-- ───── Left inner bar (vertical) ───── -->
+  <model name="wall_inner_left">
+    <static>true</static>
+    <!-- narrow bar at x=4.7, spanning the full y-length -->
+    <pose>4.7 1 1.0 0 0 0</pose>
+    <link name="box">
+      <visual name="visual">
+        <geometry><box><size>0.2 12.0 2.0</size></box></geometry>
+        <material>
+          <ambient>0 0 1 1</ambient><diffuse>0 0 1 1</diffuse><specular>0 0 1 1</specular>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry><box><size>0.2 12.0 2.0</size></box></geometry>
+      </collision>
+    </link>
+  </model>
+
+  <!-- ───── Right inner bar (vertical) ───── -->
+  <model name="wall_inner_right">
+    <static>true</static>
+    <pose>5.3 1 1.0 0 0 0</pose>
+    <link name="box">
+      <visual name="visual">
+        <geometry><box><size>0.2 12.0 2.0</size></box></geometry>
+        <material>
+          <ambient>0 0 1 1</ambient><diffuse>0 0 1 1</diffuse><specular>0 0 1 1</specular>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry><box><size>0.2 12.0 2.0</size></box></geometry>
+      </collision>
+    </link>
+  </model>
+
 
     </world>
 
