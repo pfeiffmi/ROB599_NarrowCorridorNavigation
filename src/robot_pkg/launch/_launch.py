@@ -34,9 +34,20 @@ def generate_launch_description():
         Node(
             package='ros_gz_bridge',
             executable='parameter_bridge',
-            arguments=['/example_imu_topic@sensor_msgs/msg/Imu@gz.msgs.IMU',],
+            arguments=[
+                '/example_imu_topic@sensor_msgs/msg/Imu@gz.msgs.IMU',
+                '/scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
+                'geometry_msgs/msg/Twist@gz.msgs.Twist'
+            ],
             remappings=[('/example_imu_topic',
                          '/remapped_imu_topic'),],
             output='screen'
         ),
+
+        # Launch ROS files
+        Node(
+            package='robot_pkg',
+            executable='test',
+            output='screen'
+        )
     ])
