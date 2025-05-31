@@ -9,9 +9,8 @@ setup.py
 ../../build/robot_pkg/robot_pkg.egg-info/requires.txt
 ../../build/robot_pkg/robot_pkg.egg-info/top_level.txt
 ../../build/robot_pkg/robot_pkg.egg-info/zip-safe
+gazebo_worlds/building_robot.sdf
 launch/_launch.py
-launch/maybe_launch.py
-launch/try_launch.py
 resource/robot_pkg
 robot_pkg/__init__.py
 robot_pkg/main.py
