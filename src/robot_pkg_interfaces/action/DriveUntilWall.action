@@ -1,0 +1,9 @@
+# Goal
+float32 stop_distance # dist to stop in front of wall
+float32 forward_speed # m/s 
+---
+# Result
+bool success # true -> stopped before wall
+---
+# Feedback (we're using this to test the distance to wall)
+float32 current_distance # grabs the most recent distance reading from lidar
