@@ -7,7 +7,11 @@
   <maintainer email="pfeiffmi@oregonstate.edu">mike54pfeiffer</maintainer>
   <license>Apache-2.0</license>
 
-  <depend>rclpy</depend>
+  <buildtool_depend>ament_python</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>robot_pkg_interfaces</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

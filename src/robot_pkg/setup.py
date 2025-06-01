@@ -27,6 +27,8 @@ setup(
     entry_points={
         'console_scripts': [
             'test = robot_pkg.main:main',
+            'drive = robot_pkg.drive_straight_until_wall:main',
+            'drive_action = robot_pkg.action_server_drive_until_wall:main'
         ],
     },
 )
