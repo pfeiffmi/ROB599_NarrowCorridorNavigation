@@ -86,7 +86,7 @@
         <!--Define the vehicle-->
         <model name='vehicle_blue' canonical_link='chassis'>
             <pose relative_to='world'>
-                5 7 0 0 0 -1.5708
+                5 8 0 0 0 -1.5708
             </pose>
             
             <link name='chassis'>
@@ -342,60 +342,7 @@
         
         </model> <!--END VEHICLE CHASSIS MODEL-->
 
-        <model name='wall'>
-            <static>true</static>
-            <pose>5 0 0 0 0 0</pose><!--pose relative to the world-->
-
-            <link name='box'>
-                <visual name='visual'>
-                    <geometry>
-                        <box>
-                            <size>0.5 10.0 2.0</size>
-                        </box>
-                    </geometry>
-                    <!--let's add color to our link-->
-                    <material>
-                        <ambient>0.0 0.0 1.0 1</ambient>
-                        <diffuse>0.0 0.0 1.0 1</diffuse>
-                        <specular>0.0 0.0 1.0 1</specular>
-                    </material>
-                </visual>
-
-                <collision name='collision'>
-                    <geometry>
-                        <box>
-                            <size>0.5 10.0 2.0</size>
-                        </box>
-                    </geometry>
-                </collision>
-
-                <sensor name='sensor_contact' type='contact'>
-                    <contact>
-                        <collision>collision</collision>
-                    </contact>
-                </sensor>
-            </link>
-
-            <plugin 
-                filename="gz-sim-touchplugin-system"
-                name="gz::sim::systems::TouchPlugin">
-                <target>vehicle_blue</target>
-                <namespace>wall</namespace>
-                <time>0.001</time>
-                <enabled>true</enabled>
-            </plugin>
-
-            <plugin 
-                filename="gz-sim-triggered-publisher-system"
-                name="gz::sim::systems::TriggeredPublisher">
-                <input type="gz.msgs.Boolean" topic="/wall/touched">
-                    <match>data: true</match>
-                </input>
-                <output type="gz.msgs.Twist" topic="/cmd_vel">
-                    linear: {x: -1.0}, angular: {z: 0.0}
-                </output>
-            </plugin>
-        </model> <!--END WALL MODEL-->
+        
             <!-- ———————————————————————————————— -->
         <!-- Additional walls for drawing a block “I” -->
         <!-- ———————————————————————————————— -->
@@ -440,7 +387,7 @@
   <model name="wall_inner_left">
     <static>true</static>
     <!-- narrow bar at x=4.7, spanning the full y-length -->
-    <pose>4.7 1 1.0 0 0 0</pose>
+    <pose>3.65 1 1.0 0 0 0</pose>
     <link name="box">
       <visual name="visual">
         <geometry><box><size>0.2 12.0 2.0</size></box></geometry>
@@ -457,7 +404,7 @@
   <!-- ───── Right inner bar (vertical) ───── -->
   <model name="wall_inner_right">
     <static>true</static>
-    <pose>5.3 1 1.0 0 0 0</pose>
+    <pose>6.35 1 1.0 0 0 0</pose>
     <link name="box">
       <visual name="visual">
         <geometry><box><size>0.2 12.0 2.0</size></box></geometry>
