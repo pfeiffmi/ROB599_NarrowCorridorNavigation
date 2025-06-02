@@ -7,6 +7,16 @@
   <maintainer email="pfeiffmi@oregonstate.edu">mike54pfeiffer</maintainer>
   <license>Apache-2.0</license>
 
+  <depend>rclpy</depend>
+  <depend>ros2launch</depend>
+  <depend>pyqt6-dev-tools</depend>
+  <depend>python-opencv</depend>
+  <depend>imutils</depend>
+  <depend>python3-numpy</depend>
+  <depend>python3-pyqtgraph</depend>
+
+  <depend>robot_interface_pkg</depend>
+
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
