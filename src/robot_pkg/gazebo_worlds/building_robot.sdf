@@ -139,10 +139,12 @@
                     <pose relative_to='lidar_frame'>0 0 0 0 0 0</pose>
                     <topic>lidar</topic>
                     <update_rate>10</update_rate>
+                    <visualize>true</visualize>
+                    <always_on>1</always_on>
                     <ray>
                         <scan>
                             <horizontal>
-                                <samples>640</samples>
+                                <samples>320</samples>
                                 <resolution>1</resolution>
                                 <min_angle>-1.6535</min_angle>
                                 <max_angle>1.6535</max_angle>
@@ -159,9 +161,12 @@
                             <max>10.0</max>
                             <resolution>0.01</resolution>
                         </range>
+                        <noise>
+                            <type>gaussian</type>
+                            <mean>0.0</mean>
+                            <stddev>0.05</stddev>
+                        </noise>
                     </ray>
-                    <always_on>1</always_on>
-                    <visualize>true</visualize>
                 </sensor>
             </link>
 
