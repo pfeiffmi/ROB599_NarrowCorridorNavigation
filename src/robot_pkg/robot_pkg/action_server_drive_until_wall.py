@@ -16,6 +16,10 @@ class DriveUntilWallServer(Node):
         self.stop_distance = 1.0
         self.forward_speed = 0.5
 
+        # Centering PID variables
+        self.angular_speed = 0.0
+        self.center_gain = 0.5
+
         # publishr for /cmd_vel -> gazebo bridge
         self.cmd_pub = self.create_publisher(Twist, 'cmd_vel', 10)
 
@@ -56,8 +60,8 @@ class DriveUntilWallServer(Node):
     def publish_velocity(self):
         twist = Twist()
         twist.linear.x = self.forward_speed
-        self.get_logger().info(f"publishing speed: {twist.linear.x}")
-        twist.angular.z = 0.0
+        self.get_logger().info(f"publishing speed: {twist.linear.x}, angular: {twist.angular.z}")
+        twist.angular.z = self.angular_speed
         self.cmd_pub.publish(twist)
 
 
@@ -111,6 +115,24 @@ class DriveUntilWallServer(Node):
                 center_idx = len(self.latest_scan.ranges) // 2
                 distance_ahead = self.latest_scan.ranges[center_idx]
 
+                    
+                left_idx, right_idx = center_idx - 80, center_idx + 80
+                
+                if right_idx > len(self.latest_scan.ranges): right_idx = len(self.latest_scan.ranges) - 1
+
+                if left_idx < 0: left_idx = 0
+
+                left_dist, right_dist = self.latest_scan.ranges[left_idx], self.latest_scan.ranges[right_idx]
+
+                if left_dist <= 0.0: left_dist = 10.0 # defaulting to a large value
+                if right_dist <= 0.0: right_dist = 10.0 # defaulting to a large value
+
+                center_error = left_dist - right_dist
+
+                self.angular_speed = -self.center_gain * center_error
+                
+                self.get_logger().info(f"Left: {left_dist:.2f} m, Right: {right_dist:.2f} m")
+
                 if distance_ahead <= 0.0 or distance_ahead != distance_ahead:
                     self.get_logger().info(f"if-3: {distance_ahead <= 0.0 or distance_ahead != distance_ahead}")
                     rate.sleep()
@@ -124,6 +146,7 @@ class DriveUntilWallServer(Node):
                 if distance_ahead <= self.stop_distance:
                     self.get_logger().info(f"if-4: {distance_ahead <= self.stop_distance}")
                     self.forward_speed = 0.0
+                    self.angular_speed = 0.0 # resetting angular speed to 0 since distance has been met
                     self.publish_velocity()
                     # above stops the car!
 
