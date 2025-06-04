@@ -40,6 +40,9 @@ class DriveUntilWallServer(Node):
             callback_group = ReentrantCallbackGroup()
         )
 
+        self.fail = True
+        self.action_cancelled = False
+
         self.get_logger().info("DriveUntilWall action server started, ready for movement goals.")
 
 
@@ -51,17 +54,14 @@ class DriveUntilWallServer(Node):
         center_idx = len(msg.ranges) // 2
         distance_ahead = msg.ranges[center_idx]
 
-        if distance_ahead <= 0.0 or distance_ahead != distance_ahead:
-            return
-
         self.get_logger().info(f"[lidar] distance ahead = {distance_ahead:.3f} m")
 
 
     def publish_velocity(self):
         twist = Twist()
         twist.linear.x = self.forward_speed
-        self.get_logger().info(f"publishing speed: {twist.linear.x}, angular: {twist.angular.z}")
         twist.angular.z = self.angular_speed
+        self.get_logger().info(f"publishing speed: {twist.linear.x}, angular: {twist.angular.z}")
         self.cmd_pub.publish(twist)
 
 
@@ -72,11 +72,13 @@ class DriveUntilWallServer(Node):
     def goal_callback(self, goal_request):
         """Accept or reject a client request to begin an action."""
         # This server allows multiple goals in parallel
+        self.action_cancelled = False
         self.get_logger().info('Received goal request')
         return GoalResponse.ACCEPT
 
     def cancel_callback(self, goal_handle):
         self.get_logger().info("Cancel callback executed")
+        self.action_cancelled = True
         self.forward_speed = 0.0
         self.publish_velocity()
         return CancelResponse.ACCEPT
@@ -96,7 +98,7 @@ class DriveUntilWallServer(Node):
         self.get_logger().info("Begin execution loop")
 
         try:
-            while rclpy.ok():
+            while not self.action_cancelled:
                 self.get_logger().info(f"if-0: {goal_handle.is_cancel_requested}")
                 if not goal_handle.is_active:
                     self.get_logger().info(f"if-1: {not goal_handle.is_active}")
@@ -116,7 +118,7 @@ class DriveUntilWallServer(Node):
                 distance_ahead = self.latest_scan.ranges[center_idx]
 
                     
-                left_idx, right_idx = center_idx - 80, center_idx + 80
+                left_idx, right_idx = center_idx - 90, center_idx + 90
                 
                 if right_idx > len(self.latest_scan.ranges): right_idx = len(self.latest_scan.ranges) - 1
 
@@ -145,8 +147,16 @@ class DriveUntilWallServer(Node):
                 # Check if we need to stop:
                 if distance_ahead <= self.stop_distance:
                     self.get_logger().info(f"if-4: {distance_ahead <= self.stop_distance}")
-                    self.forward_speed = 0.0
-                    self.angular_speed = 0.0 # resetting angular speed to 0 since distance has been met
+                    if(self.fail):
+                        self.fail = False
+                        for i in range(10):
+                            self.forward_speed = -1.0
+                            self.angular_speed = -2.0
+                            self.publish_velocity()
+                            rate.sleep()
+                    else:
+                        self.forward_speed = 0.0
+                        self.angular_speed = 0.0 # resetting angular speed to 0 since distance has been met
                     self.publish_velocity()
                     # above stops the car!
 
@@ -155,9 +165,10 @@ class DriveUntilWallServer(Node):
                     #result_msg.success = True
                     #goal_handle.succeed()
                     #return result_msg
-
-                self.forward_speed = float(self.forward_speed)
-                self.publish_velocity()
+                
+                else:
+                    self.forward_speed = float(self.forward_speed)
+                    self.publish_velocity()
 
                 rate.sleep()
         except:

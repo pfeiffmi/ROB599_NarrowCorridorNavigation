@@ -78,6 +78,7 @@ def laserscan_to_image(laserscan, robot_size_xy_m=(0.6, 0.3), max_lidar_range_m=
 	left_pxl = center_offset_xy[1] - (robot_size_xy_m[1]/m_per_pxl)/2
 	right_pxl = center_offset_xy[1] + (robot_size_xy_m[1]/m_per_pxl)/2
 	image[int(front_pxl):int(back_pxl+1), int(left_pxl):int(right_pxl+1)] = np.array([255, 255, 255])
+	image = np.flip(image, axis=1)
 
 	# convert to ROS image is specified
 	if(convert_from_np_to_ROS_img):

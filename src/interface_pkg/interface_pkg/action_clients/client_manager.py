@@ -23,8 +23,8 @@ class Client_Manager(QT_core.QRunnable):
     # run method
     def run(self):
         while(True):
-            rclpy.logging.get_logger("test").info("Check if action is running...")
-            time.sleep(0.05)
+            #rclpy.logging.get_logger("test").info("Check if action is running...")
+            time.sleep(0.1)
             if(self.run_action):
                 # Make the action call.
                 self.traverse_action_client.start_action(stop_distance=1.0, forward_speed=1.0)
