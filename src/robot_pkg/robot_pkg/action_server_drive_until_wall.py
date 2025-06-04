@@ -124,8 +124,8 @@ class DriveUntilWallServer(Node):
 
                 left_dist, right_dist = self.latest_scan.ranges[left_idx], self.latest_scan.ranges[right_idx]
 
-                if left_dist <= 0.0: left_dist = 10.0 # defaulting to a large value
-                if right_dist <= 0.0: right_dist = 10.0 # defaulting to a large value
+                if left_dist >= 10.0: left_dist = 10.0 # defaulting to a large value
+                if right_dist >= 10.0: right_dist = 10.0 # defaulting to a large value
 
                 center_error = left_dist - right_dist
 
