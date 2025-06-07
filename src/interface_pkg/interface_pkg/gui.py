@@ -39,8 +39,10 @@ class MainApp(QT_widgets.QMainWindow):
         # initiallize the camera thread signal settings
         self.pyqt6_ros2_bridge.lidar_signals.start.connect(self.camera_thread_start)
         self.pyqt6_ros2_bridge.lidar_signals.lidar_image.connect(self.saveImage, QT_core.Qt.ConnectionType.BlockingQueuedConnection)
+        self.pyqt6_ros2_bridge.lidar_signals.crash_warning_color.connect(self.saveWarningColor, QT_core.Qt.ConnectionType.BlockingQueuedConnection)
         self.last_image_signal = None
         self.image_unused = None
+        self.warning_color_unused = None
         self.teleop_enabled = True
         
         # get the full screen sizing
@@ -81,23 +83,31 @@ class MainApp(QT_widgets.QMainWindow):
         # Get the left and right layouts of the interface
         v_layout_left = self._get_left_layout()
         v_layout_right = self._get_right_layout()
+        v_layout_far_right = self.get_far_right_layout()
 
         # Add each vertical layout to the horizontal layout
         h_space1 = QT_widgets.QSpacerItem(
-            math.ceil(0.1*self.full_screen_width), 
+            math.ceil(0.05*self.full_screen_width), 
             1, 
             hPolicy = QT_widgets.QSizePolicy.Policy.Minimum, 
             vPolicy = QT_widgets.QSizePolicy.Policy.Expanding
         )
         h_space2 = QT_widgets.QSpacerItem(
-            math.ceil(0.2*self.full_screen_width), 
+            math.ceil(0.1*self.full_screen_width), 
             1, 
             hPolicy = QT_widgets.QSizePolicy.Policy.Minimum, 
             vPolicy = QT_widgets.QSizePolicy.Policy.Expanding
         )
 
         h_space3 = QT_widgets.QSpacerItem(
-            math.ceil(0.1*self.full_screen_width), 
+            math.ceil(0.05*self.full_screen_width), 
+            1, 
+            hPolicy = QT_widgets.QSizePolicy.Policy.Minimum, 
+            vPolicy = QT_widgets.QSizePolicy.Policy.Expanding
+        )
+
+        h_space4 = QT_widgets.QSpacerItem(
+            math.ceil(0.05*self.full_screen_width), 
             1, 
             hPolicy = QT_widgets.QSizePolicy.Policy.Minimum, 
             vPolicy = QT_widgets.QSizePolicy.Policy.Expanding
@@ -106,11 +116,11 @@ class MainApp(QT_widgets.QMainWindow):
         # Define the high-level horizontal layout
         h_layout = QT_widgets.QHBoxLayout()
         # Add the widgets to the horizontal layout
-        h_layout.addItem(h_space1)
         h_layout.addLayout(v_layout_left)
         h_layout.addItem(h_space2)
         h_layout.addLayout(v_layout_right)
         h_layout.addItem(h_space3)
+        h_layout.addLayout(v_layout_far_right)
 
         # Define the central widget from the highest level layout
         central_widget = QT_widgets.QWidget(self)
@@ -293,6 +303,47 @@ class MainApp(QT_widgets.QMainWindow):
         v_layout_right.addItem(v_space_bottom)
 
         return(v_layout_right)
+    
+
+    def get_far_right_layout(self):
+        # Define the left-side vertical layout
+        v_layout = QT_widgets.QVBoxLayout()
+
+        # Define a spacer for the upper whitespace before camera feed
+        v_space1 = QT_widgets.QSpacerItem(
+            1, 
+            40,
+            hPolicy = QT_widgets.QSizePolicy.Policy.Minimum,
+            vPolicy = QT_widgets.QSizePolicy.Policy.Minimum
+        )
+        v_layout.addItem(v_space1)
+
+        # define the label for the camera feed
+        self.crash_warning_label = QT_widgets.QLabel(alignment=QT_core.Qt.AlignmentFlag.AlignCenter)
+        self.crash_warning_label.setText("Crash Warning")
+        self.crash_warning_label.setFixedHeight(60)
+        self.crash_warning_label.setStyleSheet(
+            "font-family: sans;" \
+            "font-size: 40px;"
+        )
+        v_layout.addWidget(self.crash_warning_label)
+
+        # Define the image view for the camera feed
+        self.crash_warning = QT_widgets.QLabel(alignment=QT_core.Qt.AlignmentFlag.AlignCenter)
+        self.crash_warning_label.setFixedHeight(80)
+        self.crash_warning.setStyleSheet(f"background-color: #00FF00;")
+        v_layout.addWidget(self.crash_warning)
+        
+        # Define a spacer between the camera feed and buttons
+        v_space2 = QT_widgets.QSpacerItem(
+            1, 
+            40,
+            hPolicy = QT_widgets.QSizePolicy.Policy.Minimum,
+            vPolicy = QT_widgets.QSizePolicy.Policy.Minimum
+        )
+        v_layout.addItem(v_space2)
+
+        return(v_layout)
 
 
     # Define the slot to set the image to the label
@@ -309,13 +360,19 @@ class MainApp(QT_widgets.QMainWindow):
         self.image_unused = True
 
 
+    @QT_core.pyqtSlot(str)
+    def saveWarningColor(self, color_string):
+        self.warning_color = color_string
+        self.warning_color_unused = True
+
+
     @QT_core.pyqtSlot()
     def update_display(self):
         # Disable constance updates to change all GUI widgets at the same time
         self.setUpdatesEnabled(False)
 
         # Check for update on lidar image
-        rclpy.logging.get_logger("test").info(f"imgae unused: {self.image_unused}")
+        rclpy.logging.get_logger("test").info(f"image unused: {self.image_unused}")
         if((self.image_unused is not None) and (self.image_unused)):
             rclpy.logging.get_logger("test").info(f"---Change image")
             # update the camera feed on the display
@@ -324,6 +381,10 @@ class MainApp(QT_widgets.QMainWindow):
             #rclpy.logging.get_logger("test").info(f"{np.sum(self.last_image_signal)}")
             #filename = 'image.jpg'
             #cv2.imwrite(filename, self.last_image_signal)
+
+        if((self.warning_color_unused is not None) and (self.warning_color_unused)):
+            self.warning_color_unused = False
+            self.crash_warning.setStyleSheet(f"background-color: {self.warning_color};")
 
         # enable updates to have all widgets update at once
         self.setUpdatesEnabled(True)

@@ -52,3 +52,23 @@ class Lidar_Subscriber(Node):
         )
         image = image.astype(np.uint8)
         self.signals.lidar_image.emit(image)
+
+        center_idx = len(laserscan.ranges) // 2
+        distance_ahead = laserscan.ranges[center_idx]
+        norm_distance = (distance_ahead-2)/5
+
+        if(norm_distance > 1.0):
+            norm_distance = 1.0
+        elif(norm_distance < 0.0):
+            norm_distance = 0.0
+
+        if(norm_distance <= 0.5):
+            norm_distance *= 2
+            norm_distance *= 255
+            color_string = f"#FF{int(norm_distance):02x}00"
+        else:
+            norm_distance = 1-norm_distance
+            norm_distance *= 2
+            norm_distance *= 255
+            color_string = f"#{int(norm_distance):02x}FF00"
+        self.signals.crash_warning_color.emit(color_string)
