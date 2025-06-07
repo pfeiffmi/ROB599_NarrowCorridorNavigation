@@ -2,7 +2,9 @@
 
 Michael Pfeiffer and Siddarth Viswanathan
 
-## Install + Run:
+## Install:
+This project uses **ROS 2 Jazzy Jalisco** and **Python 3.12.3**
+
 Download gazebo using the following commands:
 ```bash
 sudo apt-get install ros-jazzy-ros-gz
@@ -15,20 +17,38 @@ Clone the repo:
 ``` bash
 git clone https://github.com/pfeiffmi/ROB599_NarrowCorridorNavigation.git
 ```
-Cd into the directory
+cd into the directory:
 ``` bash
-cd ROB599_NarrowCorridorNavigation
+cd ROB599_NarrowCorridorNavigation/src
 ```
-Build the code
+
+Run the following commands to create the virtual environment for the interface:
+```
+python3 -m venv .py_env
+source .py_env/bin/activate
+pip install -r requirements.txt 
+cd ..
+```
+
+Build the code in the same terminal:
 ```bash
 colcon build
 source install/setup.bash
 ```
-Create 2 terminals. 
-Run the following in the first terminal and press play in the bottom left corner:
+
+## Run:
+
+In the terminal with the active virtual env, display the interface with the command: 
 ```bash
+ros2 launch interface_pkg _launch.py
+```
+
+Create another terminal without the venv and execute the following commands: 
+```bash
+source install/setup.bash
 ros2 launch robot_pkg driving_sim.launch.py
 ```
-In the other terminal, send the following command to move the car:
-```bash
-ros2 action send_goal /drive_until_wall robot_pkg_interfaces/action/DriveUntilWall "{stop_distance: 1.0, forward_speed: 2.0}"
+
+This will display the Gazebo simulator. Press the orange play button in the bottom left corner of the simulator to start the sim.
+
+Go to the interface and control the robot from there!
